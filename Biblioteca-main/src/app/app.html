@@ -1,0 +1,80 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">📚 Biblioteca BEC</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto"> 
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/usuarios">Usuarios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/catalogo">Catálogo</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/prestamos">Préstamos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/login">Iniciar sesión</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <router-outlet></router-outlet>
+</div>
+
+
+
+<div class="bg-light p-5 rounded-3 text-center shadow-sm mt-3">
+  <h1 class="display-4">📚 Bienvenido a la Biblioteca BEC</h1>
+  <p class="lead">Consulta el catálogo, gestiona préstamos y descubre toda nuestra colección.</p>
+  <a routerLink="/catalogo" class="btn btn-success btn-lg">Explorar Catálogo</a>
+</div>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <h5 class="card-title">👥 Usuarios</h5>
+          <p class="card-text">Registra y administra usuarios de la biblioteca.</p>
+          <a routerLink="/usuarios" class="btn btn-primary">Ir a Usuarios</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <h5 class="card-title">📖 Catálogo</h5>
+          <p class="card-text">Busca libros, películas y material multimedia.</p>
+          <a routerLink="/catalogo" class="btn btn-success">Explorar</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <h5 class="card-title">📦 Préstamos</h5>
+          <p class="card-text">Solicita préstamos en sala o a domicilio.</p>
+          <a routerLink="/prestamos" class="btn btn-warning">Ver Préstamos</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="bg-dark text-white text-center py-3 mt-5">
+  <p>&copy; 2025 Biblioteca BEC | Proyecto académico | Grupo1</p>
+</footer>

@@ -1,0 +1,27 @@
+<div class="container mt-4">
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <form class="d-flex">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+  
+  <h2 class="mb-4">📖 Catálogo de Libros</h2>
+  <div class="row">
+    <div class="col-md-4" *ngFor="let libro of libros">
+      <div class="card shadow-sm mb-4">
+        <img [src]="libro.imagen" class="card-img-top" alt="Portada de {{libro.titulo}}">
+        <div class="card-body">
+          <h5 class="card-title">{{ libro.titulo }} {{libro.disponibilidad}}</h5>
+          <h6 class="text-muted">Autor: {{ libro.autor }}</h6>
+          <h6 class="text-muted">genero: {{libro.genero}}</h6>
+          <h6 class="text-muted">año de edicion: {{libro.fecha_edicion}}</h6>
+          <p class="card-text">{{ libro.descripcion }}</p>
+          <button class="btn btn-success">Solicitar préstamo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
