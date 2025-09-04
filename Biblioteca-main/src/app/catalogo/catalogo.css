@@ -1,0 +1,21 @@
+/* Estado badge */
+.estado {
+  display: inline-block; 
+  width: auto;        
+  max-width: fit-content;  
+  padding: 4px 10px;
+  border-radius: 12px;   
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.disponible {
+  background-color: #4caf50; 
+  color: white;
+}
+
+.no-disponible {
+  background-color: #f44336;  
+  color: white;
+}

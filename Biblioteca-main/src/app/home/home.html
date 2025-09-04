@@ -1,1 +1,50 @@
-
+<div class="bg-light p-5 rounded-3 text-center shadow-sm mt-3">
+    <h1 class="display-4">
+      <i class="fas fa-book-reader"></i> Bienvenido a la Biblioteca BEC
+    </h1>
+    <p class="lead">Consulta el catálogo, gestiona préstamos y descubre toda nuestra colección.</p>
+    <a routerLink="/catalogo" class="btn btn-success btn-lg">
+      <i class="fas fa-search"></i> Explorar Catálogo
+    </a>
+  </div>
+  
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <div class="card-body text-center">
+            <h5 class="card-title"><i class="fas fa-users"></i> Usuarios</h5>
+            <p class="card-text">Registra y administra usuarios de la biblioteca.</p>
+            <a routerLink="/usuarios" class="btn btn-primary">
+              <i class="fas fa-arrow-right"></i> Ir a Usuarios
+            </a>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <div class="card-body text-center">
+            <h5 class="card-title"><i class="fas fa-book"></i> Catálogo</h5>
+            <p class="card-text">Busca libros, películas y material multimedia.</p>
+            <a routerLink="/catalogo" class="btn btn-success">
+              <i class="fas fa-search"></i> Explorar
+            </a>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <div class="card-body text-center">
+            <h5 class="card-title"><i class="fas fa-box"></i> Préstamos</h5>
+            <p class="card-text">Solicita préstamos en sala o a domicilio.</p>
+            <a routerLink="/prestamos" class="btn btn-warning">
+              <i class="fas fa-eye"></i> Ver Préstamos
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

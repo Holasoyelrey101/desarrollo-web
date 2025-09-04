@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-listado',
-  imports: [],
+  standalone: true,  
+  imports: [RouterModule],        
   templateUrl: './listado.html',
-  styleUrl: './listado.css'
+  styleUrls: ['./listado.css']
 })
-export class Listado {
-
-}
+export class Listado {}

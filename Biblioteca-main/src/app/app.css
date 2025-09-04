@@ -1,0 +1,21 @@
+/* Asegura que el body ocupe toda la altura */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* El contenedor principal (donde está el router-outlet) debe crecer */
+  .container,
+  .container-fluid {
+    flex: 1;
+  }
+  
+  /* Footer siempre al fondo */
+  footer {
+    margin-top: auto;
+  }
+  
+
+  
