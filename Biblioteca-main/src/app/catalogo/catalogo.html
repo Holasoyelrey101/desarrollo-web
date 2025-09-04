@@ -16,8 +16,8 @@
   
   <h2 class="mb-4">📖 Catálogo de Libros</h2>
 
-  <!-- 3 libros por columna -->
-  <div class="row row-cols-1 row-cols-md-3 g-4">
+  <!-- 4 libros por columna -->
+  <div class="row row-cols-1 row-cols-md-4 g-4">
     <div class="col" *ngFor="let libro of librosFiltrados()">
       <div class="card shadow-sm h-100">
         <img [src]="libro.imagen" class="card-img-top" alt="Portada de {{libro.titulo}}">

@@ -26,7 +26,7 @@ export class Catalogo {
     {
       id: 2,
       titulo: 'Don Quijote de la Mancha',
-      disponibilidad: '(agotado)',
+      disponibilidad: '(Agotado)',
       autor: 'Miguel de Cervantes',
       genero: 'narrativo',
       descripcion: 'La historia del caballero andante y su escudero Sancho Panza.',
@@ -66,16 +66,36 @@ export class Catalogo {
     {
       id: 6,
       titulo: 'Harry Potter y la piedra filosofal',
-      disponibilidad: '(agotado)',
+      disponibilidad: '(Agotado)',
       autor: 'J. K. Rowling',
       genero: 'novela magica',
       descripcion: 'Historia de un niño que descubre que es mago.',
       imagen: 'https://imgv2-1-f.scribdassets.com/img/word_document/636301739/original/216x287/f40ab5f3e7/1752077214?v=1',
       anio_edicion: '1997',
+    },
+    {
+      id: 7,
+      titulo: 'Papelucho detective',
+      disponibilidad: '(Agotado)',
+      autor: 'Marcela Paz',
+      genero: 'Ficcion',
+      descripcion: 'un niño de ocho años ingenioso e imaginativo, se convierte en detective amateur tras un viaje con su amigo Chirigüe a su barrio, que lo involucra en un supuesto asesinato y secuestro.',
+      imagen: 'https://dojiw2m9tvv09.cloudfront.net/82626/product/asdsdsfasdasd3465.png',
+      anio_edicion: '1956',
+    },
+        {
+      id: 8,
+      titulo: 'Diario de Ana Frank',
+      disponibilidad: '(Disponible)',
+      autor: 'Ana Frank',
+      genero: 'Biografía, Autobiografía, Narrativa personal',
+      descripcion: 'relato íntimo y conmovedor de Ana Frank, una niña judía alemana, que documenta la vida de su familia y otras siete personas mientras se esconden durante la ocupación nazi de los Países Bajos en un "anexo secreto" de Ámsterdam',
+      imagen: 'https://www.antartica.cl/media/catalog/product/9/7/9789878354194_1.png?quality=80&bg-color=255,255,255&fit=bounds&height=700&width=700&canvas=700:700&format=jpeg',
+      anio_edicion: '1947',
     }
   ];
 
-  // Metodo para filtrar los libros en la barra de search.
+  // Esto filtra los libros en la barra de busqueda :).
   librosFiltrados() {
     if (!this.searchTerm) {
       return this.libros;
