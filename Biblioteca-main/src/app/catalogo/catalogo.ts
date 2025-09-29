@@ -12,6 +12,17 @@ import { FormsModule } from '@angular/forms';
 export class Catalogo {
   searchTerm: string = '';
 
+  // ----- ESTADO DEL MODAL / CALENDARIO -----
+  showCalendario = false;
+  libroSeleccionado: any = null;
+  fechaDesde = '';
+  fechaHasta = '';
+
+  // mínimo: hoy (para no permitir fechas pasadas)
+  get hoy(): string {
+    return new Date().toISOString().split('T')[0];
+  }
+
   libros = [
     {
       id: 1,
@@ -76,35 +87,72 @@ export class Catalogo {
     {
       id: 7,
       titulo: 'Papelucho detective',
-      disponibilidad: '(Agotado)',
+      disponibilidad: '(Disponible)',
       autor: 'Marcela Paz',
       genero: 'Ficcion',
-      descripcion: 'un niño de ocho años ingenioso e imaginativo, se convierte en detective amateur tras un viaje con su amigo Chirigüe a su barrio, que lo involucra en un supuesto asesinato y secuestro.',
+      descripcion: 'Un niño ingenioso se convierte en detective amateur tras un viaje con su amigo Chirigüe.',
       imagen: 'https://dojiw2m9tvv09.cloudfront.net/82626/product/asdsdsfasdasd3465.png',
       anio_edicion: '1956',
     },
-        {
+    {
       id: 8,
       titulo: 'Diario de Ana Frank',
       disponibilidad: '(Disponible)',
       autor: 'Ana Frank',
       genero: 'Biografía, Autobiografía, Narrativa personal',
-      descripcion: 'relato íntimo y conmovedor de Ana Frank, una niña judía alemana, que documenta la vida de su familia y otras siete personas mientras se esconden durante la ocupación nazi de los Países Bajos en un "anexo secreto" de Ámsterdam',
+      descripcion: 'Relato íntimo durante el escondite en el anexo secreto de Ámsterdam.',
       imagen: 'https://www.antartica.cl/media/catalog/product/9/7/9789878354194_1.png?quality=80&bg-color=255,255,255&fit=bounds&height=700&width=700&canvas=700:700&format=jpeg',
       anio_edicion: '1947',
     }
   ];
 
-  // Esto filtra los libros en la barra de busqueda :).
+  // Filtro de búsqueda
   librosFiltrados() {
-    if (!this.searchTerm) {
-      return this.libros;
-    }
+    if (!this.searchTerm) return this.libros;
     const term = this.searchTerm.toLowerCase();
     return this.libros.filter(libro =>
       libro.titulo.toLowerCase().includes(term) ||
       libro.autor.toLowerCase().includes(term) ||
       libro.genero.toLowerCase().includes(term)
     );
+  }
+
+  // ----- MODAL: abrir / cerrar / confirmar -----
+  openCalendario(libro: any) {
+    if (libro.disponibilidad.toLowerCase().includes('agotado')) return;
+    this.libroSeleccionado = libro;
+    this.fechaDesde = '';
+    this.fechaHasta = '';
+    this.showCalendario = true;
+  }
+
+  cerrarCalendario() {
+    this.showCalendario = false;
+    this.libroSeleccionado = null;
+  }
+
+  confirmarPrestamo() {
+    if (!this.fechaDesde || !this.fechaHasta) {
+      alert('Selecciona ambas fechas (desde y hasta).');
+      return;
+    }
+    if (this.fechaDesde > this.fechaHasta) {
+      alert('La fecha “desde” no puede ser mayor que la “hasta”.');
+      return;
+    }
+
+    // Aquí llamarías a tu backend/servicio real
+    console.log('Préstamo solicitado:', {
+      libroId: this.libroSeleccionado?.id,
+      titulo: this.libroSeleccionado?.titulo,
+      desde: this.fechaDesde,
+      hasta: this.fechaHasta
+    });
+
+    alert(`Préstamo solicitado para "${this.libroSeleccionado.titulo}"
+Desde: ${this.fechaDesde}
+Hasta: ${this.fechaHasta}`);
+
+    this.cerrarCalendario();
   }
 }
