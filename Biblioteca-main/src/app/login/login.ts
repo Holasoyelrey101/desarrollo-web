@@ -1,74 +1,15 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  template: `
-  <div class="min-vh-100 d-flex align-items-center justify-content-center bg-light">
-    <div class="card shadow-sm" style="width: 100%; max-width: 420px;">
-      <div class="card-body p-4">
-        <h2 class="mb-3 text-center">Iniciar sesión</h2>
-        <p class="text-muted text-center mb-4">Accede con tu correo y contraseña</p>
-
-        <form [formGroup]="form" (ngSubmit)="submit()">
-          <!-- Email -->
-          <div class="mb-3">
-            <label class="form-label">Correo</label>
-            <input
-              type="email"
-              class="form-control"
-              placeholder="tucorreo@dominio.com"
-              formControlName="email">
-            <div class="form-text text-danger" *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
-              Ingresa un correo válido.
-            </div>
-          </div>
-
-          <!-- Password -->
-          <div class="mb-2">
-            <label class="form-label">Contraseña</label>
-            <div class="input-group">
-              <input
-                [type]="showPwd() ? 'text' : 'password'"
-                class="form-control"
-                placeholder="Tu contraseña"
-                formControlName="password">
-              <button type="button" class="btn btn-outline-secondary" (click)="togglePwd()">
-                {{ showPwd() ? 'Ocultar' : 'Ver' }}
-              </button>
-            </div>
-            <div class="form-text text-danger" *ngIf="form.get('password')?.touched && form.get('password')?.invalid">
-              La contraseña es obligatoria (mínimo 6 caracteres).
-            </div>
-          </div>
-
-          <!-- Recuperar contraseña -->
-          <div class="mb-3 d-flex justify-content-end">
-            <button type="button" class="btn btn-link p-0" (click)="recuperar()">
-              ¿Olvidaste tu contraseña?
-            </button>
-          </div>
-
-          <!-- Submit -->
-          <button class="btn btn-success w-100 mb-3" type="submit" [disabled]="form.invalid">
-            Entrar
-          </button>
-
-          <!-- Registrarse -->
-          <div class="text-center">
-            <span class="text-muted">¿Necesitas registrarte?</span>
-            <button type="button" class="btn btn-link" (click)="registrarse()">
-              Crear cuenta
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  `
+  templateUrl: './login.html',
+  styleUrls: ['./login.css']
 })
 export class Login {
   showPwd = signal(false);
@@ -76,7 +17,11 @@ export class Login {
 
   form;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -85,9 +30,30 @@ export class Login {
 
   submit() {
     if (this.form.invalid) return;
-    console.log('Login ->', this.form.value);
+
+    this.authService.login(this.form.value).subscribe({
+      next: (res: any) => {
+        // Laravel debe devolver { token: "...", user: {...} }
+        if (res.token) {
+          this.authService.saveToken(res.token); //  guardamos token
+          alert('✅ Sesión iniciada correctamente');
+          this.router.navigate(['/prestamos']); // redirigimos a Dashboard
+        } else {
+          alert('⚠️ No se recibió token desde el backend');
+        }
+      },
+      error: (err) => {
+        console.error(err);
+        alert('❌ Credenciales incorrectas');
+      }
+    });
   }
 
-  recuperar() { alert('Función "Recuperar contraseña" pendiente de implementar.'); }
-  registrarse() { alert('Función "Registrarse" pendiente de implementar.'); }
+  recuperar() {
+    alert('Función "Recuperar contraseña" pendiente de implementar.');
+  }
+
+  registrarse() {
+    this.router.navigate(['/register']);
+  }
 }

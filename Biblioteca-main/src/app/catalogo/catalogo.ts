@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth'; // ajusta la ruta si es distinta
+import { ReservaService } from '../services/reserva';
 
 @Component({
   selector: 'app-catalogo',
@@ -17,6 +20,12 @@ export class Catalogo {
   libroSeleccionado: any = null;
   fechaDesde = '';
   fechaHasta = '';
+
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private reservaService: ReservaService
+  ) {}
 
   // mínimo: hoy (para no permitir fechas pasadas)
   get hoy(): string {
@@ -106,7 +115,7 @@ export class Catalogo {
     }
   ];
 
-  // Filtro de búsqueda
+  // 🔍 Filtro de búsqueda
   librosFiltrados() {
     if (!this.searchTerm) return this.libros;
     const term = this.searchTerm.toLowerCase();
@@ -119,7 +128,16 @@ export class Catalogo {
 
   // ----- MODAL: abrir / cerrar / confirmar -----
   openCalendario(libro: any) {
+    // 🔒 Validación de sesión
+    if (!this.authService.isLoggedIn()) {
+      this.router.navigate(['/login']); // si no está logueado → login
+      return;
+    }
+
+    // si está agotado → no permitir
     if (libro.disponibilidad.toLowerCase().includes('agotado')) return;
+
+    // si está logueado y disponible → abrir modal
     this.libroSeleccionado = libro;
     this.fechaDesde = '';
     this.fechaHasta = '';
@@ -132,27 +150,37 @@ export class Catalogo {
   }
 
   confirmarPrestamo() {
-    if (!this.fechaDesde || !this.fechaHasta) {
-      alert('Selecciona ambas fechas (desde y hasta).');
-      return;
-    }
-    if (this.fechaDesde > this.fechaHasta) {
-      alert('La fecha “desde” no puede ser mayor que la “hasta”.');
-      return;
-    }
+  if (!this.fechaDesde || !this.fechaHasta) {
+    alert('Selecciona ambas fechas (desde y hasta).');
+    return;
+  }
+  if (this.fechaDesde > this.fechaHasta) {
+    alert('La fecha “desde” no puede ser mayor que la “hasta”.');
+    return;
+  }
 
-    // Aquí llamarías a tu backend/servicio real
-    console.log('Préstamo solicitado:', {
-      libroId: this.libroSeleccionado?.id,
-      titulo: this.libroSeleccionado?.titulo,
-      desde: this.fechaDesde,
-      hasta: this.fechaHasta
-    });
+  const nuevaReserva = {
+    libro_id: this.libroSeleccionado?.id,
+    tipo: 'prestamo',
+    desde: this.fechaDesde,
+    hasta: this.fechaHasta
+  };
 
-    alert(`Préstamo solicitado para "${this.libroSeleccionado.titulo}"
-Desde: ${this.fechaDesde}
+  // 🔹 Llamada al backend
+  this.reservaService.crearReserva(nuevaReserva).subscribe({
+    next: (res) => {
+      alert(`✅ Préstamo registrado para "${this.libroSeleccionado?.titulo}" 
+Desde: ${this.fechaDesde} 
 Hasta: ${this.fechaHasta}`);
 
-    this.cerrarCalendario();
-  }
+      // Cierra modal y redirige al dashboard
+      this.cerrarCalendario();
+      this.router.navigate(['/prestamos']);
+    },
+    error: (err) => {
+      console.error('Error al crear la reserva', err);
+      alert('❌ Ocurrió un error al registrar la reserva.');
+    }
+  }); // 👈 este paréntesis faltaba
+}
 }

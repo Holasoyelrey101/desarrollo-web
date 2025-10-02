@@ -1,18 +1,18 @@
 import { Component, signal } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { NavbarComponent } from './navbar/navbar';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, CommonModule], 
+  imports: [RouterOutlet, RouterLink, CommonModule, NavbarComponent], 
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
 export class App {
   protected readonly title = signal('biblioteca-bec');
 
-  // Estado del tema (EN DESARROLLO)
   isDark = false;
 
   toggleTheme() {
