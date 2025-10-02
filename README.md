@@ -27,11 +27,10 @@ Antes de comenzar asegúrate de tener instalado:
 4) php artisan migrate --seed
 
 
-
-
-# Configuración de la base de datos
-
-
 # Pasos para correr Angular
 ###  Instalación
+1) cd Biblioteca-main
+2) npm install -g @Angular/cli
+3) npm install
+4) ng serve
 
