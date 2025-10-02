@@ -20,10 +20,11 @@ Antes de comenzar asegúrate de tener instalado:
 
 # Pasos para correr Laravel
 ###  Instalación
-cd code/primerproyectolaravel 
-# configurar DB_DATABASE, DB_USERNAME, DB_PASSWORD en .env
-composer install
-php artisan migrate --seed
+1) cd code/primerproyectolaravel 
+
+2) configurar DB_DATABASE, DB_USERNAME, DB_PASSWORD en .env (en mi caso utilice la DB llamada biblioteca <img width="786" height="333" alt="image" src="https://github.com/user-attachments/assets/6f4bb5ea-b7c3-4d3f-ae05-ff2930511620" />
+3) composer install
+4) php artisan migrate --seed
 
 
 
