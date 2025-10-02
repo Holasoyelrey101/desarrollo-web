@@ -17,7 +17,8 @@ Antes de comenzar asegúrate de tener instalado:
 4) GitBash
 5) Gestor de bases de datos como HeidiSQL - mysql workbench etc
 6) Angular CLI (en la consola del gitbash o powershell de la carpeta del proyecto)
-7) Tener correctamente instalado la carpeta Homestead
+7) Vagrant
+8) Tener correctamente instalado la carpeta Homestead
 
 # Pasos para correr Laravel
 ###  Instalación
