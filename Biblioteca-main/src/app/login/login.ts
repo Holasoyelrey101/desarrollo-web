@@ -22,7 +22,7 @@ export class Login {
     private authService: AuthService,
     private router: Router
   ) {
-    this.form = this.fb.group({
+    this.form = this.fb.group({ //validarores
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
@@ -36,15 +36,15 @@ export class Login {
         // Laravel debe devolver { token: "...", user: {...} }
         if (res.token) {
           this.authService.saveToken(res.token); //  guardamos token
-          alert('✅ Sesión iniciada correctamente');
+          alert(' Sesión iniciada correctamente');
           this.router.navigate(['/prestamos']); // redirigimos a Dashboard
         } else {
-          alert('⚠️ No se recibió token desde el backend');
+          alert(' No se recibió token desde el backend');
         }
       },
       error: (err) => {
         console.error(err);
-        alert('❌ Credenciales incorrectas');
+        alert(' Credenciales incorrectas');
       }
     });
   }
